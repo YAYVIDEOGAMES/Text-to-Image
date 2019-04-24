@@ -49,6 +49,7 @@ def get_image_size(text_length):
     else:  # odd length of text
         true_length += 1
 
+    '''
     f = _factors(true_length)
     width, height = 0, 0
     if len(f) % 2 != 0:  # odd number of factors, middle value will give both width, height
@@ -58,9 +59,31 @@ def get_image_size(text_length):
             f.pop(0)  # remove first and last elements
             f.pop()
         width, height = f[1], f[0]  # width should be larger than height
+    '''
+
+    # I have no idea what kind of magic was used there, but it didn't work out for me at all, 
+    # so I'm gonna use quite rough 16x9 target aspect ratio implementation
+    ratio = true_length/144.0
+    sq = math.sqrt(ratio)
+    width = math.trunc(16 * sq)
+    height = math.trunc(9 * sq)
+
+    while width*height < true_length:
+        diff = true_length - width*height
+        if diff <= height:
+            width += 1
+            break
+        if diff <= width:   
+            height += 1
+            break
+        height += 1
+        width += 1
+        if diff <= height+width-1:   
+            break
+
     return width, height
 
-
+'''
 def _factors(number):
     """
     Return a list of sorted numbers that can be multiplied to get the parameter (i.e. factors of parameter number).
@@ -71,7 +94,7 @@ def _factors(number):
         raise ValueError("Parameter 'number' must be a positive value.")
     return sorted(set(reduce(list.__add__,
                              ([i, number // i] for i in range(1, int(number ** 0.5) + 1) if number % i == 0))))
-
+'''
 
 if __name__ == "__main__":
     pass
