@@ -22,9 +22,10 @@ def decode(image_path):
     decoded_text = ""
     for row in range(0, img.size[0]):
         for col in range(0, img.size[1]):
-            pixel_value = img.getpixel((row, col))
-            if pixel_value != 0:  # ignore 0 (NULL) values
-                decoded_text += chr(pixel_value)
+            r,g,b = img.getpixel((row, col))
+            for ch in [r,g,b]:
+                if ch not in (0,1):  # ignore 0 (NULL) values
+                    decoded_text += chr(ch)
     return decoded_text
 
 

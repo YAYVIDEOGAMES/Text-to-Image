@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 from functools import reduce
-
+import math
 
 def check_filename(filepath, extension=".txt"):
     """
@@ -43,7 +43,7 @@ def get_image_size(text_length):
     :param int text_length: The length of text to be encoded as an image.
     :return (int, int): width, height of the image.
     """
-    true_length = text_length  # True length must be an even number and include the null terminator(s) at the end.
+    true_length = math.ceil(text_length / 3.0)  # True length must be an even number and include the null terminator(s) at the end.
     if text_length % 2 == 0:  # even length
         true_length = true_length + 2  # add 2 null terminators at the end
     else:  # odd length of text

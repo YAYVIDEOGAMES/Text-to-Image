@@ -31,14 +31,16 @@ def encode(text, image_path, limit=256):
     size = get_image_size(text_length)
     result_path = check_filename(image_path, extension=".png")
 
-    img = Image.new("L", size)  # grayscale, blank black image
+    img = Image.new("RGB", size)  # RGB
     ind = 0
     for row in range(0, size[0]):
         for col in range(0, size[1]):
             if ind < text_length:  # only change pixel value for length of text
-                pixel_value = convert_char_to_int(text[ind], limit=limit)
-                img.putpixel((row, col), pixel_value)
-                ind += 1
+                r = convert_char_to_int(text[ind], limit=limit)
+                g = convert_char_to_int(text[ind+1], limit=limit) if ind+1 < text_length else 1
+                b = convert_char_to_int(text[ind+2], limit=limit) if ind+2 < text_length else 1
+                img.putpixel((row, col), (r, g, b))
+                ind += 3
             else:  # end of text, leave remaining pixel(s) black to indicate null
                 break
     img.save(result_path)

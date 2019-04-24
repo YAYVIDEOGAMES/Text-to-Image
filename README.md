@@ -1,17 +1,21 @@
 # Text To Image
 
-Easily convert your text to grayscale images and vice versa.
 
-With this tool you can encode text or plain text files to a grayscale image to be easily shared. Each pixel represents a single character's decimal value. When decoding an image you can decode text straight to the console or to a plain text file.
 
-<img src="Resources/words_alpha.png" alt="grayscale-image-for-dictionary"/>
+Easily convert your text to RGB images and vice versa.
+
+Forked from original grayscale version https://github.com/akapila011/Text-to-Image
+
+With this tool you can encode text or plain text files to a RGB image to be easily shared. Each pixel represents a single character's decimal value. When decoding an image you can decode text straight to the console or to a plain text file.
+
+<img src="Resources/words_alpha.png" alt="rgb-image-for-dictionary"/>
 
 Images use a PNG file extension. The image size will be automatically be set depending on the text length to be encoded.
 
 Text should use a character encoding scheme using 8 bits or less until additional functionality is added to support UTF-8 (16 bit). If a character's decimal value is greater than the limit (see below) the it will be divided by the limit and the new value used. When the character value equals the limit value the new value will be 1.
 
 The limit value passed using either command line argument -l(--limit) specifies the decimal value limit for pixel values starting from 1. The default is 256 allowing for numbers from 1 to 255 (i.e. 8 bit pixels).
-If the limit value is greater than 8 bits then the value will still be wrapped around since the output image is grayscale.
+If the limit value is greater than 8 bits then the value will still be wrapped around since the output image is RGB.
 
 ##### Requirements
 
@@ -21,14 +25,10 @@ If the limit value is greater than 8 bits then the value will still be wrapped a
 
 ## Install
 
-You can install text_to_image using pip or setup.py
+You can install text_to_image using setup.py
 
-* Using pip
-```bash
-$> pip3 install text_to_image
-```
 
-* Using setup.py. First navigative to the root directory where setup.py is located then run
+* First navigative to the root directory where setup.py is located then run
 ```bash
 $> python3 setup.py install
 ```
@@ -71,11 +71,3 @@ To run tests, navigate to the root directory where setup.py is located and run
 $> python3-m unittest discover tests -v
 ```
 
-Another image example:
-
-<img src="Resources/example.png" alt="another-example-image-with-encoded-text"/>
-
-#### TODO:
-
-* Add custom image sizes.
-* Expand pixel value to allow for UTF-8 characters.
